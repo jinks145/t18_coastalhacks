@@ -1,0 +1,33 @@
+version: '3'
+services:
+  app:
+    build:
+      context: ../../
+      dockerfile: ./Docker/app/Dockerfile
+    image: app:latest
+    volumes:
+      - ../../:/home/docker/app/:rw
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgresql
+    
+    links:
+      - postgresql:postgresql
+
+  
+  postgresql:
+    image: postgresql
+    shm_size: '2gb'
+    volumes:
+      - ./databases/dev/postgresql/data:/var/lib/postgresql/data:rw
+      # - ../../databases/config:/var/lib/postgresql/data/postgresql.conf:rw
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=mnm
+      - POSTGRES_USER=mnm
+      - POSTGRES_PASSWORD=MnM&m3M2020
+    command: ["-c", "shared_buffers=512MB", "-c", "max_connections=500"]
+
+ 

@@ -1,0 +1,45 @@
+# General
+*~
+__pycache__
+
+# Python
+*.pyc
+env/
+venv/
+db.sqlite3
+*.dat
+*.csv
+*.xls
+*.xlsx
+#*.pkl
+.kernel*
+**/migrations/**
+!**/migrations
+!**/migrations/__init__.py
+
+databases/**/data
+
+
+
+# Git
+.gitlab-ci.yml
+
+# log
+*.log
+
+# media
+**/media/**
+!**/media
+!**/media/**/__init__.py
+
+
+
+
+
+# Docker
+bin/
+lib/
+
+.vscode/
+.idea/
+mod_wsgi-4.7.1/*

@@ -17,8 +17,14 @@ install = "*"
 django-userforeignkey = "*"
 drf-yasg = "*"
 whitenoise = "*"
+djangorestframework-simplejwt = "*"
 
 [dev-packages]
+mypy = "*"
+black = "*"
 
 [requires]
 python_version = "3.9"
+
+[pipenv]
+allow_prereleases = true

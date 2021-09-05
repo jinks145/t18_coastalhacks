@@ -2,8 +2,8 @@ version: '3'
 services:
   app:
     build:
-      context: ../../
-      dockerfile: ./Docker/app/Dockerfile
+      context: ../
+      dockerfile: ./docker/app/Dockerfile
     image: app:latest
     volumes:
       - ../../:/home/docker/app/:rw
@@ -17,7 +17,7 @@ services:
 
   
   postgresql:
-    image: postgresql
+    image: postgres:latest
     shm_size: '2gb'
     volumes:
       - ./databases/dev/postgresql/data:/var/lib/postgresql/data:rw
@@ -25,9 +25,9 @@ services:
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_DB=mnm
-      - POSTGRES_USER=mnm
-      - POSTGRES_PASSWORD=MnM&m3M2020
+      - POSTGRES_DB=fussDb
+      - POSTGRES_USER=fussUser
+      - POSTGRES_PASSWORD=FussThePussPass
     command: ["-c", "shared_buffers=512MB", "-c", "max_connections=500"]
 
  

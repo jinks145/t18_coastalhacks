@@ -18,6 +18,27 @@ class LoginSerializer(serializers.ModelSerializer):
         fields = ("email", "password")
 
 
+class ProfileSerializerOut(serializers.ModelSerializer):
+    class PetSerializerOut(serializers.ModelSerializer):
+        class Meta:
+            model = Pet
+            fields = ("id", "name", "weight")
+
+    pet = PetSerializerOut()
+
+    class Meta:
+        model = User
+        fields = (
+            "id",
+            "first_name",
+            "last_name",
+            "email",
+            "age",
+            "sex",
+            "pet",
+        )
+
+
 class AddPetSerializer(serializers.ModelSerializer):
 
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
@@ -27,17 +48,16 @@ class AddPetSerializer(serializers.ModelSerializer):
         fields = ("id", "user", "name")
 
 
-class AddReportSerializer(serializers.ModelSerializer):
+class ReportSeriliazerIn(serializers.ModelSerializer):
 
-    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
-
-    class Meta:
-        model = Report
-        fields = ("is_meal", "user", "title", "body", "mealtime")
-
-
-class GeneralReportSerializer(serializers.ModelSerializer):
+    created_by = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
         model = Report
-        fields = ("is_meal", "title", "body", "mealtime")
+        fields = ("uuid", "is_success", "created_by", "title", "body", "mealtime")
+
+
+class ReportSerializerOut(serializers.ModelSerializer):
+    class Meta:
+        model = Report
+        fields = ("uuid", "is_success", "title", "body", "mealtime")

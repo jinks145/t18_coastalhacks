@@ -13,4 +13,4 @@ EXPOSE 8000
 RUN pip install pipenv
 RUN pipenv install --system
 
-RUN chmod +x ./init.sh
+# RUN chmod +x ./init.sh

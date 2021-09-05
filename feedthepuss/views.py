@@ -1,9 +1,18 @@
+from feedthepuss.filters import ReportFilter
+from django_filters import rest_framework as filters
+from Base.serializers import SerializerNone
 from feedthepuss.services import UserService
 from feedthepuss.models import User, Pet, Report
-from feedthepuss.serializers import AddPetSerializer, LoginSerializer, SignUpSerializer, AddReportSerializer
-from rest_framework import generics, permissions
+from feedthepuss.serializers import (
+    AddPetSerializer,
+    LoginSerializer,
+    ProfileSerializerOut,
+    ReportSerializerOut,
+    ReportSeriliazerIn,
+    SignUpSerializer,
+)
 from drf_yasg.utils import swagger_auto_schema
-from rest_framework import permissions, status
+from rest_framework import status, generics, permissions, viewsets
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 
@@ -18,6 +27,11 @@ class SignUpView(generics.CreateAPIView):
     serializer_class = SignUpSerializer
 
 
+class ProfileView(generics.RetrieveAPIView):
+    queryset = User.objects.filter(is_active=True)
+    serializer_class = ProfileSerializerOut
+
+
 class PetView(generics.CreateAPIView):
     queryset = Pet.objects.all()
     serializer_class = AddPetSerializer
@@ -26,28 +40,19 @@ class PetView(generics.CreateAPIView):
     ]
 
 
-class AddReportView(generics.CreateAPIView):
+class ReportView(viewsets.ModelViewSet):
+    http_method_names = ["get", "post"]
     queryset = Report.objects.all()
-    serializer_class = AddReportSerializer
-
-    #TODO: limit permission  to author
     permission_classes = [
         permissions.IsAuthenticated,
     ]
+    view_serializers = {
+        "create": ReportSeriliazerIn,
+        "retrieve": ReportSerializerOut,
+        "list": ReportSerializerOut,
+    }
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = ReportFilter
 
-class ManageReportView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Report.objects.all()
-    serializer_class = AddReportSerializer
-
-    permission_classes = [
-        permissions.IsAuthenticated,
-    ]
-
-@swagger_auto_schema(
-    method="POST",
-)
-@api_view(["POST"])
-@permission_classes([permissions.IsAuthenticated])
-def reportSuccess(request):
-    UserService.reportSuccess(request.user)
-    return Response(status=status.HTTP_202_ACCEPTED)
+    def get_serializer_class(self):
+        return self.view_serializers.get(self.action, SerializerNone)

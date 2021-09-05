@@ -1,36 +1,24 @@
 from feedthepuss.models import User, Report
-from datetime import datetime
+from datetime import datetime, timedelta
+
+
 class UserService:
-    def login(self, email: str, password: str):
-        from django.contrib.auth import authenticate
-
-        user = authenticate(username="john", password="secret")
-        if user is not None:
-            pass
-        else:
-            pass
-
     @staticmethod
     def reportSuccess(user: User):
         # User Must have A pet
         pet = user.getPet()
-        if pet is not None:
-            if UserService.hasNotCheated(user):
-                pet.Feed()
-                pet.save()
-                user.resetCheatDay()
-            else:
-                user.incCheatDay()
+        if pet is not None and UserService.hasNotCheated(user):
+            pet.Feed()
+            pet.save()
 
-    def hasNotCheated(current:User):
+    @staticmethod
+    def hasNotCheated(current: User):
         # filters the code by
-        dayreports = Report.objects.filter(user=current, created_at__gte= datetime.today(), created_at__lt = datetime.today() + datetime.timedelta(days=1))
-
-        if not dayreports.exists():
+        dayreports = Report.objects.filter(
+            created_by=current,
+            created_at__lte=datetime.today(),
+            created_at__gte=datetime.today() - timedelta(days=2),
+        )
+        if dayreports.count() == 2 or dayreports.filter(is_success=False).exists():
             return False
-        
-        if dayreports.filter(is_meal=False).exists():
-            return False
-        
-
-        return dayreports.count() == dayreports.filter(is_meal=False) == 3
+        return True

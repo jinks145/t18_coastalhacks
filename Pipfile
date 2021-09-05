@@ -18,6 +18,7 @@ django-userforeignkey = "*"
 drf-yasg = "*"
 whitenoise = "*"
 djangorestframework-simplejwt = "*"
+django-filter = "*"
 
 [dev-packages]
 mypy = "*"

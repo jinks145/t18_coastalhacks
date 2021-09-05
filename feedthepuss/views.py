@@ -1,6 +1,6 @@
 from feedthepuss.services import UserService
-from feedthepuss.models import User, Pet
-from feedthepuss.serializers import AddPetSerializer, LoginSerializer, SignUpSerializer
+from feedthepuss.models import User, Pet, Report
+from feedthepuss.serializers import AddPetSerializer, LoginSerializer, SignUpSerializer, AddReportSerializer
 from rest_framework import generics, permissions
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import permissions, status
@@ -25,6 +25,23 @@ class PetView(generics.CreateAPIView):
         permissions.IsAuthenticated,
     ]
 
+
+class AddReportView(generics.CreateAPIView):
+    queryset = Report.objects.all()
+    serializer_class = AddReportSerializer
+
+    #TODO: limit permission  to author
+    permission_classes = [
+        permissions.IsAuthenticated,
+    ]
+
+class ManageReportView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Report.objects.all()
+    serializer_class = AddReportSerializer
+
+    permission_classes = [
+        permissions.IsAuthenticated,
+    ]
 
 @swagger_auto_schema(
     method="POST",

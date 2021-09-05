@@ -6,7 +6,7 @@ services:
       dockerfile: ./docker/app/Dockerfile
     image: app:latest
     volumes:
-      - ../../:/home/docker/app/:rw
+      - ../:/home/docker/app/:rw
     ports:
       - "8000:8000"
     depends_on:
@@ -14,6 +14,7 @@ services:
     
     links:
       - postgresql:postgresql
+    # entrypoint: ["tail","-f","/dev/null"]
 
   
   postgresql:

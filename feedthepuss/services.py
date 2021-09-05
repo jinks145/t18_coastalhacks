@@ -1,9 +1,10 @@
 from feedthepuss.models import User, Report
 from datetime import datetime, timedelta
-
+from background_task import background
 
 class UserService:
     @staticmethod
+    @background(schedule=datetime.today().replace(hour=22, minute=30))
     def reportSuccess(user: User):
         # User Must have A pet
         pet = user.getPet()

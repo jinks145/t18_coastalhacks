@@ -47,7 +47,7 @@ class Pet(models.Model):
 class Report(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
     # TODO: if using boolean field to distinguish meals and cheat is a bad idea, then feel free to seperate to a new table
-    is_meal = models.BooleanField(default=False)
+    is_success = models.BooleanField(default=False)
     uuid = models.UUIDField(primary_key=True, auto_created=True, default=uuid4, editable=False)
     created_at = models.DateTimeField(auto_created=True)
     mealtime = models.DateTimeField()

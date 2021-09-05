@@ -47,45 +47,45 @@ class AddReportView(generics.CreateAPIView):
         permissions.IsAuthenticated,
     ]
 
-class IsmealsView(generics.ListAPIView):
+# class IsmealsView(generics.ListAPIView):
     
-    def get_queryset(self):
-        queryset = Report.objects.filter(user = self.request.user, is_meal=True)
-        return queryset
+#     def get_queryset(self):
+#         queryset = Report.objects.filter(user = self.request.user, is_meal=True)
+#         return queryset
 
-    serializer_class = ReportSerializer
+#     serializer_class = ReportSerializer
 
-    permission_classes = [
-        permissions.IsAuthenticated,
-    ]
+#     permission_classes = [
+#         permissions.IsAuthenticated,
+#     ]
 
-class NotmealLogsView(generics.ListAPIView):
+# class NotmealLogsView(generics.ListAPIView):
 
-    def get_queryset(self):
-        queryset = Report.objects.filter(user = self.request.user, is_meal=False)
-        return queryset
+#     def get_queryset(self):
+#         queryset = Report.objects.filter(user = self.request.user, is_meal=False)
+#         return queryset
 
     
-    serializer_class = ReportSerializer
+#     serializer_class = ReportSerializer
 
-    permission_classes = [
-        permissions.IsAuthenticated,
-    ]
+#     permission_classes = [
+#         permissions.IsAuthenticated,
+#     ]
 
-class EatLogbyTitleView(generics.RetrieveAPIView):
-    def get_queryset(self):
-        queryset = Report.objects.filter(user = self.request.user, title=self.kwargs['title'])
-        return queryset
+# class EatLogbyTitleView(generics.RetrieveAPIView):
+#     def get_queryset(self):
+#         queryset = Report.objects.filter(user = self.request.user, title=self.kwargs['title'])
+#         return queryset
     
     
     
-    serializer_class = ReportSerializer
+#     serializer_class = ReportSerializer
 
 
 
-    permission_classes = [
-        permissions.IsAuthenticated,
-    ]
+#     permission_classes = [
+#         permissions.IsAuthenticated,
+#     ]
 
 class UpdateLogView(generics.UpdateAPIView):
     def get_queryset(self):

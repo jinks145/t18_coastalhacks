@@ -33,11 +33,11 @@ class AddReportSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Report
-        fields = ("is_meal", "user", "title", "body", "mealtime")
+        fields = ("is_sucess", "user", "title", "body", "mealtime")
 
 
-class GeneralReportSerializer(serializers.ModelSerializer):
+class ReportSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Report
-        fields = ("is_meal", "title", "body", "mealtime")
+        fields = ("is_sucess", "title", "body", "mealtime")

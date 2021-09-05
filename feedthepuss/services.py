@@ -1,12 +1,17 @@
 from feedthepuss.models import User, Report
 from datetime import datetime, timedelta
 from background_task import background
+from background_task.models import Task
 
 class UserService:
+
+    
+    
     @staticmethod
     @background(schedule=datetime.today().replace(hour=22, minute=30))
-    def reportSuccess(user: User):
+    def reportSuccess(email: str):
         # User Must have A pet
+        user = User.objects.get(email)
         pet = user.getPet()
         if pet is not None and UserService.hasNotCheated(user):
             pet.Feed()

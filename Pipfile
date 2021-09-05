@@ -19,6 +19,7 @@ drf-yasg = "*"
 whitenoise = "*"
 djangorestframework-simplejwt = "*"
 django-filter = "*"
+django-background-tasks = "*"
 
 [dev-packages]
 mypy = "*"

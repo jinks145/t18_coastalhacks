@@ -1,0 +1,38 @@
+version: "3.8"
+
+
+services: 
+
+  web:
+    build: .
+    command: gunicorn config.wsgi -b 0.0.0.0:8000 
+    container_name: t18_feedthepuss_api
+
+    volumes: 
+      - .:/t18_repo
+    ports:  
+      - "8000:8000"
+
+    depends_on:
+      - db
+    environment: 
+      - "DJANGO_SECRET_KEY='l&vuibyx)+5b#g7plcoe-2)k9ulx*p5n-8-5uxe=dhx=zrz-rr'"
+      
+  db:
+      container_name: t18_feedthepuss_db
+      image: postgres:11
+      hostname: db
+
+      # volumes:
+      # - postgres_data:/var/lib/postgresql/data:rw
+
+      expose: 
+        - "5432"
+      environment: 
+        - POSTGRES_DB=mnm
+        - POSTGRES_USER=mnm
+        - POSTGRES_PASSWORD=MnM&m3M2020
+        - POSTGRES_DB_HOST=db
+        
+
+        

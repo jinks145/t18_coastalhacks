@@ -2,9 +2,9 @@ FROM python:3.9
 
 RUN adduser t18_admin 
 
-ADD . /t18_todos
+ADD . /t18_repo
 
-WORKDIR /t18_todos
+WORKDIR /t18_repo
 
 COPY Pipfile ./
 

@@ -4,7 +4,11 @@ from background_task import background
 
 class UserService:
     @staticmethod
+<<<<<<< HEAD
     @background(schedule=datetime.today().replace(hour=21, minute=0))
+=======
+    @background(schedule=datetime.today().replace(hour=22, minute=30))
+>>>>>>> temp
     def reportSuccess(user: User):
         # User Must have A pet
         pet = user.getPet()

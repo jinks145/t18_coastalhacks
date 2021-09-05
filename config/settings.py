@@ -41,8 +41,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt",
     "drf_yasg",
-    # added 
-    "background_task",
+    'background_task'
 ]
 
 MIDDLEWARE = [

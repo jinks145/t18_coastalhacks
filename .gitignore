@@ -17,7 +17,7 @@ db.sqlite3
 !**/migrations
 !**/migrations/__init__.py
 
-databases/**/data
+docker/databases/**/data
 
 
 

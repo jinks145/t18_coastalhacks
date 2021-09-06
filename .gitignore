@@ -17,7 +17,7 @@ db.sqlite3
 !**/migrations
 !**/migrations/__init__.py
 
-databases/**/data
+docker/databases/**/data
 
 
 
@@ -40,6 +40,9 @@ databases/**/data
 bin/
 lib/
 
-.vscode/
 .idea/
 mod_wsgi-4.7.1/*
+branch_structure.json
+temp_auto_push.bat
+temp_interactive_push.bat
+.gitignore
